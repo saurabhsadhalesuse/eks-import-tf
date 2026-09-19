@@ -5,25 +5,25 @@
 
 # AWS region where EKS and related resources will be provisioned
 # Example: "us-west-2", "us-east-1", "eu-west-1"
-# aws_region = ""
+aws_region = ""
 
 # Target VPC ID where the EKS cluster will be deployed
 # Example: "vpc-0123456789abcdef0"
-# vpc_id = ""
+vpc_id = ""
 
 # List of Subnet IDs across at least 2 different Availability Zones for High Availability
 # Example: ["subnet-0123456789abcdef0", "subnet-0fe2109876543210"]
-# subnet_ids = []
+subnet_ids = []
 
 # Full URL of your Rancher Management Server
 # Example: "https://rancher.yourdomain.com"
-# rancher_url = ""
+rancher_url = ""
 
 # Rancher API Bearer Token for cluster registration
 # Generate from: Rancher UI -> Account & Security -> API Keys
 # Example: "token-xxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-# rancher_token = ""
+rancher_token = ""
 
 # Unique identifier/name for the EKS cluster
 # Example: "production-eks-cluster"
-# cluster_name = ""
+cluster_name = ""
