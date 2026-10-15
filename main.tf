@@ -83,7 +83,9 @@ resource "null_resource" "apply_rancher_agent" {
   provisioner "local-exec" {
     command = <<EOT
       aws eks update-kubeconfig --region ${var.aws_region} --name ${var.cluster_name}
-      curl -sSL  ${rancher2_cluster.imported.cluster_registration_token[0].manifest_url} | kubectl apply -f -
+      curl --fail --silent --show-error --location "${rancher2_cluster.imported.cluster_registration_token[0].manifest_url}" -o /tmp/rancher-agent.yaml
+      kubectl apply -f /tmp/rancher-agent.yaml
+      rm -f /tmp/rancher-agent.yaml      
     EOT
   }
 
