@@ -31,6 +31,7 @@ variable "cluster_name" {
 
 variable "eks_admin_principal_arn" {
   type        = string
+  sensitive = true
   description = "IAM user or role ARN that needs EKS cluster administrator access"
 }
 
