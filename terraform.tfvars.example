@@ -27,3 +27,6 @@ rancher_token = ""
 # Unique identifier/name for the EKS cluster
 # Example: "production-eks-cluster"
 cluster_name = ""
+
+# Enter your account_ID and change user to your own user
+eks_admin_principal_arn = "arn:aws:iam::<YOUR_ACCOUNT_ID>:user/robert.marks"

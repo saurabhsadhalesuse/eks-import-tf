@@ -29,16 +29,41 @@ module "eks" {
 
   eks_managed_node_groups = {
     default = {
-      min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      min_size       = 1
+      max_size       = 3
+      desired_size   = 2
       instance_types = ["t3.medium"]
     }
   }
 }
 
 # ------------------------------------------------------------------------------
-# 3. RANCHER CLUSTER IMPORT & AGENT DEPLOYMENT
+# 3. AUTOMATICALLY CREATE EKS ACCESS ENTRY
+# ------------------------------------------------------------------------------
+
+resource "aws_eks_access_entry" "terraform_operator" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = var.eks_admin_principal_arn
+  type          = "STANDARD"
+}
+
+# ------------------------------------------------------------------------------
+# 4. AUTOMATICALLY ASSOCIATE EKS CLUSTER ADMIN POLICY
+# ------------------------------------------------------------------------------
+
+resource "aws_eks_access_policy_association" "terraform_operator_admin" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = aws_eks_access_entry.terraform_operator.principal_arn
+
+  policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+}
+
+# ------------------------------------------------------------------------------
+# 5. RANCHER CLUSTER IMPORT & AGENT DEPLOYMENT
 # ------------------------------------------------------------------------------
 
 # Register imported cluster entry in Rancher
@@ -64,6 +89,8 @@ resource "null_resource" "apply_rancher_agent" {
 
   depends_on = [
     module.eks,
-    rancher2_cluster.imported
+    rancher2_cluster.imported,
+    aws_eks_access_policy_association.terraform_operator_admin
   ]
 }
+

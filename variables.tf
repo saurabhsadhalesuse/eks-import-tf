@@ -28,3 +28,10 @@ variable "cluster_name" {
   type    = string
   default = "my-eks-cluster"
 }
+
+variable "eks_admin_principal_arn" {
+  type        = string
+  description = "IAM user or role ARN that needs EKS cluster administrator access"
+}
+
+
