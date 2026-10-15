@@ -16,6 +16,7 @@ This Terraform repository automates the provisioning of an **Amazon EKS Cluster*
 
 Before running this Terraform module, ensure you have installed and configured:
 
+- NOTE: Ensure that the Rancher Management Cluster is configured with **agent-tls-mode** with **System Store** 
 - [Terraform](https://developer.hashicorp.com/terraform/downloads) `>= 1.3.0`
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) (configured with appropriate credentials)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/)
